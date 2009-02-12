@@ -15,7 +15,7 @@ parser.add_option('-c', '', dest='cfgfile', help='Config file')
 parser.add_option('-o', '', dest='xmlfile', help='Output file')
 parser.add_option('-v', '', action='count', dest='verb', help='Verbose output')
 
-parser.set_defaults(cfgfile='nagixsca-cron.conf')
+parser.set_defaults(cfgfile='nagixsca-client.conf')
 parser.set_defaults(xmlfile='nagixsca.xml')
 parser.set_defaults(verb=0)
 
