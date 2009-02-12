@@ -1,0 +1,1 @@
+*/15 * * * * /root/nagixsca/nagixsca-cron.py -c /root/nagixsca/examples/nagixsca-cron.conf -o /var/www/nagixsca.xml

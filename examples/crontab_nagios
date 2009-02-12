@@ -1,0 +1,1 @@
+*/15 * * * * /root/nagixsca/nagixsca.py -u http://www.CLIENTHOST.lan/nagixsca.xml -n NAGIOS_HOST_NAME -p /var/lib/nagios3/rw/nagios.cmd
