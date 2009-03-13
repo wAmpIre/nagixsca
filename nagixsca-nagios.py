@@ -22,11 +22,11 @@ parser.set_defaults(verb=0)
 
 (options, args) = parser.parse_args()
 
-if options.name==None:
+if options.name==None and options.verb <= 1:
 	print "Need a hostname for Nagios!"
 	sys.exit(127)
 
-if options.pipe==None:
+if options.pipe==None and options.verb <= 1:
 	print "Need full path to the nagios.cmd pipe!"
 	sys.exit(127)
 
@@ -58,7 +58,10 @@ for service in services:
 	if options.verb >= 1:
 		print line
 
-pipe = open(options.pipe, "w")
-pipe.write(commands)
-pipe.close()
+if options.verb <= 1:
+	pipe = open(options.pipe, "w")
+	pipe.write(commands)
+	pipe.close()
+else:
+	print "Passive check results NOT written to Nagios pipe due to -vv!"
 
