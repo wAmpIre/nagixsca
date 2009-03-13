@@ -33,8 +33,13 @@ if options.pipe==None and options.verb <= 1:
 ##############################################################################
 
 now = datetime.datetime.now().strftime('%s')
-commands =""
+commands = ""
 
+# Open pipe only if not in debugging mode
+if options.verb <= 2:
+	pipe = open(options.pipe, "w")
+
+# Get URL or file
 if options.url != None:
 	import urllib2
 
@@ -44,6 +49,7 @@ if options.url != None:
 else:
 	doc = libxml2.parseFile(options.file)
 
+# Start XML work
 ctxt = doc.xpathNewContext()
 services = ctxt.xpathEval("//service")
 
@@ -52,15 +58,15 @@ for service in services:
 	retcode  = service.xpathEval('returncode')[0].get_content()
 	output   = base64.b64decode(service.xpathEval('output')[0].get_content()).rstrip()
 
-	line = "[%s]; PROCESS_SERVICE_CHECK_RESULT;%s;%s;%s;%s" % (now, options.name, srvdescr, retcode, output )
-	commands += line + '\n'
+	line = '[%s] PROCESS_SERVICE_CHECK_RESULT;%s;%s;%s;%s' % (now, options.name, srvdescr, retcode, output )
+
+	if options.verb <= 2:
+		pipe.write(line + '\n')
 
 	if options.verb >= 1:
 		print line
 
-if options.verb <= 1:
-	pipe = open(options.pipe, "w")
-	pipe.write(commands)
+if options.verb <= 2:
 	pipe.close()
 else:
 	print "Passive check results NOT written to Nagios pipe due to -vv!"
