@@ -16,7 +16,7 @@ parser = optparse.OptionParser()
 
 parser.add_option('-c', '', dest='cfgfile', help='Config file')
 parser.add_option('-o', '', dest='xmlfile', help='Output file')
-parser.add_option('-e', '', dest='encoding', help='Encoding (ATM only "base64")')
+parser.add_option('-e', '', dest='encoding', help='Encoding ("base64", "plain")')
 parser.add_option('-v', '', action='count', dest='verb', help='Verbose output')
 
 parser.set_defaults(cfgfile='nagixsca-client.conf')
